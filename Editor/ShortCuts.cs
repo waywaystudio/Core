@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEditor.ShortcutManagement;
 using UnityEngine;
 
-namespace Wayway.Engine
+namespace Wayway.Engine.Editor
 {
     public static class ShortCuts
     {
