@@ -11,7 +11,7 @@ using UnityEditor;
 using UnityEngine;
 using Wayway.Engine;
 
-namespace Wayway.Engine
+namespace Wayway.Engine.Editor
 {
     public class ScriptableObjectCreator : OdinMenuEditorWindow
     {

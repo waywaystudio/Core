@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Wayway.Engine
+namespace Wayway.Engine.Editor
 {
     public static class FileUtility
     {
