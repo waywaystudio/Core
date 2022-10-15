@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace Wayway.Engine
 {
@@ -11,6 +12,14 @@ namespace Wayway.Engine
             var arr = (T[])Enum.GetValues(src.GetType());
             var j = Array.IndexOf(arr, src) + 1;
             return (arr.Length==j) ? arr[0] : arr[j];
+        }
+        
+        public static Enum GetRandomEnumValue(this Type t)
+        {
+            return Enum.GetValues(t)            
+                .OfType<Enum>()                 
+                .OrderBy(_ => Guid.NewGuid())   
+                .FirstOrDefault();              
         }
     }
 }

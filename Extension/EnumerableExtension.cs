@@ -110,13 +110,5 @@ namespace Wayway.Engine
             if (!list.Contains(item)) return;
             list.Remove(item);
         }
-
-        public static Enum GetRandomEnumValue(this Type t)
-        {
-            return Enum.GetValues(t)            
-                .OfType<Enum>()                 
-                .OrderBy(_ => Guid.NewGuid())   
-                .FirstOrDefault();              
-        }
     }
 }

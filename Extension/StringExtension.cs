@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+// ReSharper disable UnusedMember.Global
 
 namespace Wayway.Engine
 {
@@ -44,6 +45,23 @@ namespace Wayway.Engine
             return result.Length <= 2
                 ? result.ToUpper()
                 : result;
+        }
+        
+        /// <summary>
+        /// Converts string to enum object
+        /// </summary>
+        /// <typeparam name="T">Type of enum</typeparam>
+        /// <param name="original">String value to convert</param>
+        /// <returns>Returns enum object</returns>
+        public static T ToEnum<T>(this string original)
+            where T : struct
+        {
+            return (T) Enum.Parse(typeof (T), original, true);
+        }
+        
+        public static bool IsNumeric(this string original)
+        {
+            return long.TryParse(original, System.Globalization.NumberStyles.Integer, System.Globalization.NumberFormatInfo.InvariantInfo, out _);
         }
     }
 }
