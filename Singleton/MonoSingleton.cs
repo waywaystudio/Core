@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 // ReSharper disable ClassWithVirtualMembersNeverInherited.Global
+// ReSharper disable MemberCanBeProtected.Global
 
 namespace Wayway.Engine.Singleton
 {
@@ -32,8 +33,8 @@ namespace Wayway.Engine.Singleton
                         if (instance == null)
                         {
                             Debug.LogWarning($"[Singleton] 【{type.Name}】Is Null. \n" +
-                                $"Project MonoSingleton doesn't make Auto {type.Name} gameObject. \n" +
-                                $"return Null;");
+                                $"MonoSingleton doesn't make Auto {type.Name} gameObject. \n" +
+                                "return null;");
 
                             return null;
                         }
