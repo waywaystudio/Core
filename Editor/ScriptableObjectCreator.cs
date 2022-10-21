@@ -9,7 +9,6 @@ using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
 using UnityEditor;
 using UnityEngine;
-using Wayway.Engine;
 
 namespace Wayway.Engine.Editor
 {
