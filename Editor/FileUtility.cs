@@ -5,6 +5,11 @@ namespace Wayway.Engine.Editor
 {
     public static class FileUtility
     {
+        public static bool FindFile(string directory, string fileName)
+        {
+            return File.Exists($"{directory}/{fileName}");
+        }
+        
         public static bool CopyFolder(string sourcePath, string targetPath)
         {
             if (!Directory.Exists(targetPath))

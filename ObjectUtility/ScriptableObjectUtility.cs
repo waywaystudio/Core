@@ -44,7 +44,7 @@ namespace Wayway.Engine
                     if (assetName != filter) continue;
                     targetIndex = i;
                         
-                    Debug.LogWarning($"Multiple Founded :: count : {gUIDs.Length} keyWord : {filter} \n " +
+                    Debug.LogWarning($"Multiple Found :: count : {gUIDs.Length} keyWord : {filter} \n " +
                                      $"Select Asset by Exactly SameName :: {assetName}");
                 }
             }
