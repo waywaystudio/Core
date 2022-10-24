@@ -85,16 +85,46 @@ namespace Wayway.Engine
             return AssetDatabase.GetAssetPath(prefab);
         }
 
-        public static void Save(Object target)
+        public static T GetObject<T>(string directory, string fileName) where T : Object
         {
-            var targetObject = GetObjectName<GameObject>(false);
+            var result = AssetDatabase.LoadAssetAtPath<T>($"{directory}/{fileName}");
+
+            return result;
+        }
+        
+        public static string GetScriptableObjectScriptPath(ScriptableObject scriptableObject)
+        {
+            var ms = MonoScript.FromScriptableObject(scriptableObject);
             
-            EditorUtility.SetDirty(target);
+            return AssetDatabase.GetAssetPath(ms);
         }
 
-        public static void Refresh()
+        public static string GetMonoBehaviourScriptPath(MonoBehaviour monoBehaviour)
         {
-            AssetDatabase.Refresh();
+            var ms = MonoScript.FromMonoBehaviour(monoBehaviour);
+            
+            return AssetDatabase.GetAssetPath(ms);
+        }
+        
+        /// <summary>
+        /// Create Prefab at specific Path
+        /// </summary>
+        /// <param name="originalPrefab">Original prefab</param>
+        /// <param name="directoryPath">Set Directory ex.Assets/Project/Data </param>
+        /// <param name="prefabName">Set PrefabName ex.MyPrefab</param>
+        public static void CreatePrefab(GameObject originalPrefab, string directoryPath, string prefabName)
+        {
+            var prefab = Object.Instantiate(originalPrefab);
+
+            if (directoryPath.EndsWith('/'))
+                directoryPath = directoryPath[^1..];
+
+            if (prefabName.EndsWith(".prefab"))
+                prefabName = prefabName[^7..];
+
+            PrefabUtility.SaveAsPrefabAsset(prefab, $"{directoryPath}/{prefabName}.prefab");
+            
+            Object.DestroyImmediate(prefab);
         }
     }
 }
