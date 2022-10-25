@@ -112,7 +112,7 @@ namespace Wayway.Engine
         /// <param name="originalPrefab">Original prefab</param>
         /// <param name="directoryPath">Set Directory ex.Assets/Project/Data </param>
         /// <param name="prefabName">Set PrefabName ex.MyPrefab</param>
-        public static void CreatePrefab(GameObject originalPrefab, string directoryPath, string prefabName)
+        public static GameObject CreatePrefab(GameObject originalPrefab, string directoryPath, string prefabName)
         {
             var prefab = Object.Instantiate(originalPrefab);
 
@@ -122,9 +122,11 @@ namespace Wayway.Engine
             if (prefabName.EndsWith(".prefab"))
                 prefabName = prefabName[^7..];
 
-            PrefabUtility.SaveAsPrefabAsset(prefab, $"{directoryPath}/{prefabName}.prefab");
+            var result = PrefabUtility.SaveAsPrefabAsset(prefab, $"{directoryPath}/{prefabName}.prefab");
             
             Object.DestroyImmediate(prefab);
+
+            return result;
         }
     }
 }
