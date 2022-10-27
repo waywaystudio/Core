@@ -63,5 +63,10 @@ namespace Wayway.Engine
         {
             return long.TryParse(original, System.Globalization.NumberStyles.Integer, System.Globalization.NumberFormatInfo.InvariantInfo, out _);
         }
+
+        public static bool NotContains(this string original, char value)
+        {
+            return !original.Contains(value);
+        }
     }
 }
