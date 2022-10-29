@@ -68,5 +68,18 @@ namespace Wayway.Engine
         {
             return !original.Contains(value);
         }
+
+        /// <summary>
+        /// Add strings on array like CollectionType. Not obsolete but less recommendation...
+        /// </summary>
+        /// <param name="original">original array</param>
+        /// <param name="item">new string</param>
+        public static void Add(this string[] original, string item)
+        {
+            var newSize = original.IsNullOrEmpty() ? 1 : original.Length + 1;
+            
+            Array.Resize(ref original, newSize);
+            original[^1] = item;
+        }
     }
 }
