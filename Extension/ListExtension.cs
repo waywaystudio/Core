@@ -146,6 +146,11 @@ namespace Wayway.Engine
 
             (list[firstIndex], list[secondIndex]) = (list[secondIndex], list[firstIndex]);
         }
+
+        public static void TraverseByTwoElement<T>(this List<T> list)
+        {
+            
+        }
     }
 }
 
