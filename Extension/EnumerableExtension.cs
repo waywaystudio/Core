@@ -99,7 +99,7 @@ namespace Wayway.Engine
 
         public static IEnumerable<(T item, int index)> WithIndex<T>(this IEnumerable<T> self) => self.Select((item, index) => (item, index));
 
-        public static void AddOnlyOne<T>(this ICollection<T> list, T item)
+        public static void AddUniquely<T>(this ICollection<T> list, T item)
         {
             if (list.Contains(item)) return;
             list.Add(item);

@@ -9,39 +9,35 @@ namespace Wayway.Engine.Singleton
         public bool ShowDebugMessage;
 
         private static T instance;
-        private static object @lock = new ();
+        private static readonly object Lock = new ();
         private static bool isFirst = true;
 
         public static T Instance
         {
             get
             {
-                lock (@lock)
+                lock (Lock)
                 {
-                    if (instance == null)
+                    if (instance != null) 
+                        return instance;
+
+                    var type = typeof(T);
+                    var instances = FindObjectsOfType(type);
+
+                    switch (instances.Length)
                     {
-                        var type = typeof(T);
-
-                        instance = (T)FindObjectOfType(type);
-
-                        if (FindObjectsOfType(type).Length > 1)
-                        {
-                            Debug.LogError($"[Singleton] Same【{type.Name}】Duplication.");
-                            return instance;
-                        }
-                        
-                        if (instance == null)
-                        {
-                            Debug.LogWarning($"[Singleton] 【{type.Name}】Is Null. \n" +
-                                $"MonoSingleton doesn't make Auto {type.Name} gameObject. \n" +
-                                "return null;");
-
+                        case 0:
+                            Debug.LogWarning($"【{type.Name} Singleton】 Is Null. \n" +
+                                             "MonoSingleton do not generate gameObject. \n" +
+                                             "return null;");
                             return null;
-                        }
+                        case 1:
+                            return instances[0] as T;
+                        default:
+                            Debug.LogError($"【{type.Name} Singleton】 Duplication. Count : {instances.Length}");
+                            return instances[0] as T;
                     }
                 }
-
-                return instance;
             }
         }
 
@@ -52,9 +48,9 @@ namespace Wayway.Engine.Singleton
                 instance = this as T;
                 isFirst = false;
 
-                if (ShowDebugMessage)
-                    if (instance != null)
-                        Debug.Log($"[Singleton] Create instance at firstTime : 【{instance.GetType().Name}】");
+                if (!ShowDebugMessage) return;
+                if (instance != null)
+                    Debug.Log($"[Singleton] Create instance at firstTime : 【{instance.GetType().Name}】");
             }
             else
             {
@@ -68,22 +64,20 @@ namespace Wayway.Engine.Singleton
                 {
                     instance = this as T;
 
-                    if (ShowDebugMessage)
-                        if (instance != null)
-                            Debug.Log($"[Singleton] Override instance : 【{instance.GetType().Name}】");
+                    if (!ShowDebugMessage) return;
+                    if (instance != null)
+                        Debug.Log($"[Singleton] Override instance : 【{instance.GetType().Name}】");
                 }
             }
         }
 
         protected virtual void OnDestroy()
         {
-            if (instance != null && instance.gameObject == gameObject)
-            {
-                if (ShowDebugMessage)
-                    Debug.Log($"[Singleton] Destroy instance : 【{instance.GetType().Name}】");
+            if (instance == null || instance.gameObject != gameObject) return;
+            if (ShowDebugMessage)
+                Debug.Log($"[Singleton] Destroy instance : 【{instance.GetType().Name}】");
 
-                instance = null;
-            }
+            instance = null;
         }
     }
 }
