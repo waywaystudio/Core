@@ -26,13 +26,8 @@ namespace Wayway.Engine.Singleton
 
                     switch (instances.Length)
                     {
-                        case 0:
-                            Debug.LogWarning($"【{type.Name} Singleton】 Is Null. \n" +
-                                             "MonoSingleton do not generate gameObject. \n" +
-                                             "return null;");
-                            return null;
-                        case 1:
-                            return instances[0] as T;
+                        case 0: return null;
+                        case 1: return instances[0] as T;
                         default:
                             Debug.LogError($"【{type.Name} Singleton】 Duplication. Count : {instances.Length}");
                             return instances[0] as T;
