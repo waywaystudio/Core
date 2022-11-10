@@ -21,7 +21,6 @@ namespace Wayway.Engine.Singleton
                 return;
             }
 
-            // Duplication Check        
             var components = FindObjectsOfType(TargetBehaviour.GetType());
 
             switch (components.Length)
@@ -35,7 +34,7 @@ namespace Wayway.Engine.Singleton
                     }
 
                     /* Annotation */
-                    Destroy(gameObject);
+                    DestroyImmediate(gameObject);
                     break;
                 }
                 case 1:
@@ -54,7 +53,7 @@ namespace Wayway.Engine.Singleton
                     {
                         Debug.LogError($"Can't Find {TargetBehaviour.GetType()}.");
                     }
-
+                    
                     break;
                 }
             }
@@ -63,4 +62,5 @@ namespace Wayway.Engine.Singleton
 }
 
 /* Annotation
-if (gameObject.SetActive(false)) skipped. Awake, Start called twice; */
+MainGame 프리팹이 있는 씬에서 시작하여 다시 돌아올 때 새로 불려지는 씬의 MainGame 프리팹을 바로 삭제하기 위하여 
+해당 함수내에(38) DestroyImmediately를 사용했다. 조금 찝찝한 구석이 있다. */
