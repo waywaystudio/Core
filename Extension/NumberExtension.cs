@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Wayway.Engine
 {
     public static class NumberExtension
@@ -35,6 +37,11 @@ namespace Wayway.Engine
                 >= 10000 => (number / 1000D).ToString("0.##K"),
                 _ => number.ToString("#,0")
             };
+        }
+
+        public static bool Chance(this float number)
+        {
+            return Random.Range(0f, 1f) <= number;
         }
     }
 }
